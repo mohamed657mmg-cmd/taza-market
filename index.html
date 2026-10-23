@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طازة ماركت | الطازة لحد باب بيتك</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --green:#176B43;
+  --deep:#104B32;
+  --lime:#DDF3B5;
+  --orange:#F49A38;
+  --bg:#F6F8F2;
+  --white:#fff;
+  --text:#203326;
+  --muted:#849087;
+  --border:#E8EDE5;
+}
+
+body{
+  font-family:Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible{
+  outline:2px solid var(--orange);
+  outline-offset:3px;
+}
+
+.hidden{display:none!important}
+
+/* شاشة البداية وتسجيل الدخول */
+
+.auth-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 10% 15%,#DDF3B5 0,transparent 35%),
+    linear-gradient(145deg,#F9FBF5,#EAF4E4);
+}
+
+.auth-card{
+  background:white;
+  width:100%;
+  max-width:410px;
+  border-radius:28px;
+  padding:30px 24px;
+  box-shadow:0 18px 55px #104B3215;
+  text-align:center;
+}
+
+.brand-icon{
+  width:86px;
+  height:86px;
+  margin:0 auto 16px;
+  border-radius:27px;
+  background:var(--green);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:43px;
+  box-shadow:0 10px 25px #176B4330;
+}
+
+.brand-name{
+  font-size:30px;
+  font-weight:900;
+  color:var(--green);
+  margin-bottom:8px;
+}
+
+.brand-name span{color:var(--orange)}
+
+.auth-subtitle{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+.field-label{
+  display:block;
+  text-align:right;
+  font-size:13px;
+  font-weight:bold;
+  margin:15px 0 8px;
+}
+
+.input{
+  width:100%;
+  padding:15px;
+  border:1px solid var(--border);
+  background:#FAFCF8;
+  border-radius:13px;
+  outline-color:var(--green);
+  direction:rtl;
+}
+
+.primary-btn{
+  width:100%;
+  padding:15px;
+  margin-top:17px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  font-weight:bold;
+  background:var(--green);
+  box-shadow:0 7px 17px #176B4320;
+}
+
+.primary-btn:hover{background:var(--deep)}
+
+.small-note{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+  margin-top:15px;
+}
+
+/* المتجر */
+
+#store{padding-bottom:95px}
+
+.header{
+  background:var(--green);
+  color:white;
+  padding:17px 5%;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.header-logo{
+  font-size:23px;
+  font-weight:900;
+}
+
+.header-logo span{color:var(--lime)}
+
+.cart-button{
+  border:0;
+  border-radius:25px;
+  padding:10px 15px;
+  background:white;
+  color:var(--green);
+  font-weight:bold;
+}
+
+.hero{
+  margin:18px 4%;
+  border-radius:25px;
+  padding:25px 22px;
+  min-height:175px;
+  overflow:hidden;
+  position:relative;
+  background:linear-gradient(120deg,#DDF3B5,#F5F8E8);
+}
+
+.hero h1{
+  color:var(--deep);
+  font-size:25px;
+  line-height:1.6;
+  max-width:75%;
+}
+
+.hero p{
+  color:#526653;
+  font-size:13px;
+  line-height:1.9;
+  margin-top:8px;
+  max-width:75%;
+}
+
+.hero-art{
+  position:absolute;
+  left:8px;
+  bottom:7px;
+  font-size:60px;
+  transform:rotate(-10deg);
+}
+
+.search-wrap{padding:0 4% 16px}
+
+.search{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:white;
+  padding:14px 16px;
+  outline-color:var(--green);
+}
+
+.categories{
+  display:flex;
+  gap:9px;
+  padding:0 4% 20px;
+  overflow-x:auto;
+}
+
+.category{
+  border:1px solid #DCE7D8;
+  border-radius:24px;
+  background:white;
+  color:var(--green);
+  padding:10px 17px;
+  white-space:nowrap;
+  font-weight:bold;
+}
+
+.category.active{
+  background:var(--green);
+  color:white;
+  border-color:var(--green);
+}
+
+.section-heading{
+  padding:0 4%;
+  margin:5px 0 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.section-heading h2{font-size:19px}
+
+.section-heading small{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  padding:0 4% 25px;
+}
+
+.product{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:11px;
+  box-shadow:0 4px 14px #173D1407;
+  min-width:0;
+}
+
+.product-art{
+  height:112px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-size:52px;
+  background:linear-gradient(145deg,#EFF7E8,#F8FAF4);
+  margin-bottom:12px;
+}
+
+.product h3{
+  font-size:15px;
+  margin-bottom:7px;
+}
+
+.product .unit{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+.qty-control{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  margin:10px 0;
+}
+
+.qty-btn{
+  width:33px;
+  height:33px;
+  border:0;
+  border-radius:11px;
+  background:var(--green);
+  color:white;
+  font-size:21px;
+}
+
+.qty-number{
+  min-width:18px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.add-btn{
+  width:100%;
+  border:0;
+  background:#E8F4DF;
+  color:var(--green);
+  border-radius:11px;
+  padding:10px 5px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.add-btn:hover{background:var(--lime)}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+}
+
+/* شريط التنقل */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:8;
+  background:white;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-around;
+  padding:10px 3px calc(10px + env(safe-area-inset-bottom));
+}
+
+.nav-btn{
+  border:0;
+  background:none;
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  font-size:10px;
+}
+
+.nav-btn .icon{font-size:21px}
+
+.nav-btn.active{color:var(--green);font-weight:bold}
+
+/* السلة */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  background:#0007;
+  padding:14px;
+  display:none;
+}
+
+.overlay.open{
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.cart-sheet{
+  width:100%;
+  max-width:500px;
+  background:white;
+  border-radius:25px 25px 18px 18px;
+  padding:22px;
+  max-height:85vh;
+  overflow:auto;
+}
+
+.cart-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.close-btn{
+  border:0;
+  border-radius:10px;
+  padding:8px 12px;
+  background:#F0F2ED;
+}
+
+.cart-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.cart-product{font-size:13px;flex:1}
+
+.cart-qty{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.cart-qty button{
+  width:27px;
+  height:27px;
+  border:0;
+  border-radius:8px;
+  background:#E8F4DF;
+  color:var(--green);
+  font-size:18px;
+}
+
+.cart-note{
+  background:#FFF5E5;
+  color:#77551E;
+  border-radius:12px;
+  padding:12px;
+  font-size:12px;
+  line-height:1.8;
+  margin-top:15px;
+}
+
+footer{
+  text-align:center;
+  color:var(--muted);
+  padding:20px;
+  font-size:11px;
+}
+
+@media(min-width:700px){
+  .products{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hero h1{font-size:34px}
+  .hero{padding:35px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- شاشة البداية -->
+<section id="splash" class="auth-screen">
+  <div class="auth-card">
+    <div class="brand-icon">🍃</div>
+    <div class="brand-name">طازة <span>ماركت</span></div>
+    <p class="auth-subtitle">كل يوم طازة... وكل طلب لحد باب بيتك</p>
+    <button class="primary-btn" onclick="showLogin()">ابدأ التسوق</button>
+  </div>
+</section>
+
+<!-- تسجيل الدخول -->
+<section id="login" class="auth-screen hidden">
+  <div class="auth-card">
+    <div class="brand-icon">🍃</div>
+    <div class="brand-name">طازة <span>ماركت</span></div>
+    <p class="auth-subtitle">
+      سجل برقم موبايلك عشان تقدر تطلب منتجاتك الطازة.
+    </p>
+
+    <label class="field-label" for="phone">رقم الموبايل المصري</label>
+    <input class="input" id="phone" type="tel"
+           inputmode="numeric" placeholder="01XXXXXXXXX"
+           maxlength="11">
+
+    <button class="primary-btn" onclick="sendDemoCode()">
+      إرسال كود التحقق
+    </button>
+
+    <p class="small-note">
+      نموذج تجريبي للواجهة. إرسال الرسائل الحقيقية يتطلب تفعيل خدمة التحقق.
+    </p>
+  </div>
+</section>
+
+<!-- شاشة إدخال كود التحقق -->
+<section id="verify" class="auth-screen hidden">
+  <div class="auth-card">
+    <div class="brand-icon">✉️</div>
+    <div class="brand-name">تأكيد <span>الرقم</span></div>
+    <p class="auth-subtitle">
+      اكتب كود التحقق المكوّن من 6 أرقام.
+    </p>
+
+    <label class="field-label" for="code">كود التحقق</label>
+    <input class="input" id="code" type="text"
+           inputmode="numeric" maxlength="6"
+           placeholder="••••••">
+
+    <button class="primary-btn" onclick="verifyDemoCode()">
+      تأكيد ودخول المتجر
+    </button>
+
+    <button class="primary-btn"
+            style="background:#E8F4DF;color:#176B43"
+            onclick="showLogin()">
+      تغيير رقم الهاتف
+    </button>
+
+    <p class="small-note">
+      في النسخة التجريبية، أي كود من 6 أرقام سيُقبل.
+    </p>
+  </div>
+</section>
+
+<!-- واجهة المتجر -->
+<main id="store" class="hidden">
+
+  <header class="header">
+    <div class="header-row">
+      <div class="header-logo">طازة <span>ماركت</span></div>
+      <button class="cart-button" onclick="openCart()">
+        🛒 السلة (<span id="cartCount">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>الطازة لحد باب بيتك 🍃</h1>
+    <p>خضار وفاكهة مختارة بعناية... اطلب اللي بتحبه بسهولة.</p>
+    <div class="hero-art">🍎🥬</div>
+  </section>
+
+  <div class="search-wrap">
+    <input class="search" id="search" type="search"
+           placeholder="🔍 دور على منتج بتحبه..."
+           oninput="renderProducts()">
+  </div>
+
+  <div class="categories">
+    <button class="category active" onclick="setCategory('الكل',this)">الكل</button>
+    <button class="category" onclick="setCategory('خضار',this)">🥦 الخضار</button>
+    <button class="category" onclick="setCategory('فاكهة',this)">🍎 الفاكهة</button>
+  </div>
+
+  <div class="section-heading">
+    <h2 id="sectionTitle">منتجاتنا الطازة</h2>
+    <small>اختار الكمية اللي تناسبك</small>
+  </div>
+
+  <div class="products" id="products"></div>
+
+  <footer>طازة ماركت · الطازة لحد باب بيتك 🍃</footer>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="goHome(this)">
+      <span class="icon">⌂</span>الرئيسية
+    </button>
+    <button class="nav-btn" onclick="goCategory('خضار',this)">
+      <span class="icon">🥦</span>الخضار
+    </button>
+    <button class="nav-btn" onclick="goCategory('فاكهة',this)">
+      <span class="icon">🍎</span>الفاكهة
+    </button>
+    <button class="nav-btn" onclick="openCart()">
+      <span class="icon">🛒</span>السلة
+    </button>
+    <button
