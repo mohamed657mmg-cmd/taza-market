@@ -17,7 +17,6 @@
   --muted:#7b8980;
   --line:#e7eee8;
   --bg:#f7faf7;
-  --white:#fff;
 }
 *{box-sizing:border-box}
 body{
@@ -130,7 +129,7 @@ header{
 .cart-item:last-child{border-bottom:0}
 .cart-pic{
   width:52px;height:52px;border-radius:12px;background:var(--green-light);
-  display:grid;place-items:center;font-size:27px;overflow:hidden
+  display:grid;place-items:center;font-size:27px;overflow:hidden;flex-shrink:0
 }
 .cart-pic img{width:100%;height:100%;object-fit:cover}
 .cart-name{flex:1;min-width:0}
@@ -163,7 +162,9 @@ main{padding-bottom:88px}
 }
 .note{font-size:12px;color:var(--muted);line-height:1.7}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(max-width:800px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:800px){
+  .products{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 @media(max-width:570px){
   .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .product-picture{height:125px}
@@ -171,7 +172,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
   .hero{padding:22px 18px}
   .hero-art{font-size:65px}
 }
-@media(max-width:350px){.products{grid-template-columns:1fr}}
+@media(max-width:350px){
+  .products{grid-template-columns:1fr}
+}
 </style>
 </head>
 
@@ -190,7 +193,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </header>
 
 <main class="container">
-  <!-- الرئيسية -->
+
+  <!-- الصفحة الرئيسية -->
   <section class="page active" id="homePage">
     <div class="hero">
       <div>
@@ -217,27 +221,37 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
     </div>
   </section>
 
-  <!-- السلة -->
+  <!-- سلة المشتريات -->
   <section class="page" id="cartPage">
     <div class="section-heading"><h2>🛒 سلة المشتريات</h2></div>
     <div class="panel" id="cartBox"></div>
+
     <div class="panel">
       <h2>بيانات التوصيل</h2>
-      <div class="field"><label for="buyerName">الاسم</label><input id="buyerName" placeholder="اسم العميل"></div>
-      <div class="field"><label for="buyerPhone">رقم الموبايل</label><input id="buyerPhone" type="tel" placeholder="01xxxxxxxxx"></div>
-      <div class="field"><label for="buyerAddress">العنوان</label><input id="buyerAddress" placeholder="المنطقة والشارع"></div>
+      <div class="field">
+        <label for="buyerName">الاسم</label>
+        <input id="buyerName" placeholder="اسم العميل">
+      </div>
+      <div class="field">
+        <label for="buyerPhone">رقم الموبايل</label>
+        <input id="buyerPhone" type="tel" placeholder="01xxxxxxxxx">
+      </div>
+      <div class="field">
+        <label for="buyerAddress">العنوان</label>
+        <input id="buyerAddress" placeholder="المنطقة والشارع">
+      </div>
       <button class="full-btn" onclick="submitOrder()">تسجيل الطلب تجريبيًا</button>
-      <p class="note">الطلب بيتحفظ على نفس الجهاز كتجربة، ومش بيتبعت للمحل فعليًا قبل ربط قاعدة بيانات وخدمة طلبات.</p>
+      <p class="note">الطلب بيتحفظ كتجربة على نفس الجهاز، ومش بيتبعت للمحل فعليًا قبل ربط قاعدة بيانات وخدمة طلبات.</p>
     </div>
   </section>
 
-  <!-- الطلبات -->
+  <!-- صفحة الطلبات -->
   <section class="page" id="ordersPage">
     <div class="section-heading"><h2>📦 طلباتي</h2></div>
     <div id="ordersBox"></div>
   </section>
 
-  <!-- الحساب -->
+  <!-- صفحة الحساب -->
   <section class="page" id="accountPage">
     <div class="section-heading"><h2>👤 حسابي</h2></div>
     <div class="panel">
@@ -247,14 +261,20 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
     </div>
   </section>
 
-  <!-- إدارة المنتجات -->
+  <!-- لوحة إدارة المنتجات -->
   <section class="page" id="adminPage">
     <div class="section-heading"><h2>⚙️ إدارة المنتجات</h2></div>
+
     <div class="panel">
       <h2 id="formHeading">إضافة منتج جديد</h2>
       <form id="productForm" onsubmit="saveProduct(event)">
         <input id="productId" type="hidden">
-        <div class="field"><label for="nameInput">اسم المنتج</label><input id="nameInput" required placeholder="مثلاً: طماطم"></div>
+
+        <div class="field">
+          <label for="nameInput">اسم المنتج</label>
+          <input id="nameInput" required placeholder="مثلاً: طماطم">
+        </div>
+
         <div class="field">
           <label for="categoryInput">القسم</label>
           <select id="categoryInput">
@@ -262,18 +282,34 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
             <option value="فاكهة">فاكهة</option>
           </select>
         </div>
-        <div class="field"><label for="unitInput">وحدة البيع</label><input id="unitInput" placeholder="كيلو / قطعة / ربطة"></div>
-        <div class="field"><label for="emojiInput">رمز المنتج</label><input id="emojiInput" placeholder="🍅" maxlength="8"></div>
-        <div class="field"><label for="imageInput">رابط صورة المنتج (اختياري)</label><input id="imageInput" type="url" placeholder="رابط الصورة"></div>
+
+        <div class="field">
+          <label for="unitInput">وحدة البيع</label>
+          <input id="unitInput" placeholder="كيلو / قطعة / ربطة">
+        </div>
+
+        <div class="field">
+          <label for="emojiInput">رمز المنتج</label>
+          <input id="emojiInput" placeholder="🍅" maxlength="8">
+        </div>
+
+        <div class="field">
+          <label for="imageInput">رابط صورة المنتج (اختياري)</label>
+          <input id="imageInput" type="url" placeholder="رابط الصورة">
+        </div>
+
         <button class="full-btn" type="submit">حفظ المنتج</button>
         <button class="outline-btn" type="button" onclick="resetForm()">إلغاء التعديل</button>
       </form>
     </div>
 
     <div class="panel">
-      <div class="section-heading"><h2>المنتجات الموجودة</h2><span id="adminCount" class="note"></span></div>
+      <div class="section-heading">
+        <h2>المنتجات الموجودة</h2>
+        <span id="adminCount" class="note"></span>
+      </div>
       <div id="adminList"></div>
-      <p class="note">تعديلات لوحة الإدارة محفوظة محليًا في المتصفح الحالي. مشاركة المنتجات والتعديلات بين العميل وصاحب المتجر تحتاج قاعدة بيانات مشتركة في المرحلة التالية.</p>
+      <p class="note">تعديلات لوحة الإدارة محفوظة محليًا في المتصفح الحالي. مشاركة المنتجات والتعديلات بين العميل وصاحب المتجر تحتاج قاعدة بيانات مشتركة.</p>
     </div>
   </section>
 
@@ -288,6 +324,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </nav>
 
 <script>
+"use strict";
+
+/* المنتجات الافتراضية: بدون أسعار */
 const defaultProducts=[
   {id:1,name:"طماطم",category:"خضار",unit:"كيلو",emoji:"🍅",image:""},
   {id:2,name:"بطاطس",category:"خضار",unit:"كيلو",emoji:"🥔",image:""},
@@ -310,176 +349,254 @@ const defaultProducts=[
   {id:19,name:"رمان",category:"فاكهة",unit:"كيلو",emoji:"🔴",image:""},
   {id:20,name:"جوافة",category:"فاكهة",unit:"كيلو",emoji:"🍐",image:""},
   {id:21,name:"بطيخ",category:"فاكهة",unit:"قطعة",emoji:"🍉",image:""},
-  {id:22,name:"خوخ",category:"فاكهة",unit:"كيلو",emoji:"🍑",image:""}
+  {id:22,name:"خوخ",category:"فاكهة",unit:"كيلو",emoji:"🍑",image:""},
+  {id:23,name:"أناناس",category:"فاكهة",unit:"قطعة",emoji:"🍍",image:""},
+  {id:24,name:"أفوكادو",category:"فاكهة",unit:"قطعة",emoji:"🥑",image:""}
 ];
 
+/* قراءة بيانات المتصفح مع التحقق من نوعها */
 function readStorage(key,fallback){
   try{
     const saved=localStorage.getItem(key);
-    return saved?JSON.parse(saved):fallback;
-  }catch(error){return fallback;}
+    if(!saved)return fallback;
+    const parsed=JSON.parse(saved);
+    return parsed;
+  }catch(error){
+    return fallback;
+  }
 }
-let products=readStorage("taza_products",defaultProducts);
+
+const storedProducts=readStorage("taza_products",null);
+let products=Array.isArray(storedProducts)?storedProducts:defaultProducts.slice();
 let cart=readStorage("taza_cart",{});
 let orders=readStorage("taza_orders",[]);
+if(!cart||typeof cart!=="object"||Array.isArray(cart))cart={};
+if(!Array.isArray(orders))orders=[];
+
 let activeCategory="الكل";
 
+/* حفظ البيانات على الجهاز */
 function persist(){
-  localStorage.setItem("taza_products",JSON.stringify(products));
-  localStorage.setItem("taza_cart",JSON.stringify(cart));
-  localStorage.setItem("taza_orders",JSON.stringify(orders));
-}
-function safe(value){
-  return String(value??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function getQty(id){return Number(cart[id]||0);}
-function productImage(p){
-  return p.image
-    ? `<img src="${safe(p.image)}" alt="${safe(p.name)}" onerror="this.style.display='none'">`
-    : `<span class="product-emoji">${safe(p.emoji||"🥬")}</span>`;
-}
-function renderCategories(){
-  const list=["الكل","خضار","فاكهة"];
-  document.getElementById("categories").innerHTML=list.map(c=>
-    `<button class="cat-btn ${activeCategory===c?"active":""}" onclick="chooseCategory('${c}')">${c==="الكل"?"كل المنتجات":c}</button>`
-  ).join("");
-}
-function chooseCategory(category){
-  activeCategory=category;renderCategories();renderProducts();
-}
-function renderProducts(){
-  const query=document.getElementById("searchBox").value.trim().toLowerCase();
-  const result=products.filter(p=>
-    (activeCategory==="الكل"||p.category===activeCategory)&&
-    p.name.toLowerCase().includes(query)
-  );
-  document.getElementById("sectionTitle").textContent=activeCategory==="الكل"?"كل المنتجات":activeCategory;
-  document.getElementById("productCount").textContent=result.length+" منتج";
-  const target=document.getElementById("products");
-  if(!result.length){
-    target.innerHTML='<div class="empty">مش لاقيين المنتج ده.</div>';return;
+  try{
+    localStorage.setItem("taza_products",JSON.stringify(products));
+    localStorage.setItem("taza_cart",JSON.stringify(cart));
+    localStorage.setItem("taza_orders",JSON.stringify(orders));
+  }catch(error){
+    console.warn("تعذر حفظ البيانات محليًا",error);
   }
-  target.innerHTML=result.map(p=>{
-    const qty=getQty(p.id);
+}
+
+/* حماية النصوص قبل عرضها في HTML */
+function safe(value){
+  return String(value??"").replace(/[&<>"']/g,function(char){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[char];
+  });
+}
+
+function getQty(id){
+  return Number(cart[id]||0);
+}
+
+function productImage(product){
+  if(product.image){
+    return `<img src="${safe(product.image)}" alt="${safe(product.name)}"
+      onerror="this.style.display='none'">`;
+  }
+  return `<span class="product-emoji">${safe(product.emoji||"🥬")}</span>`;
+}
+
+/* إنشاء أزرار الأقسام */
+function renderCategories(){
+  const categories=["الكل","خضار","فاكهة"];
+  const target=document.getElementById("categories");
+
+  target.innerHTML=categories.map(function(category){
+    const active=activeCategory===category?"active":"";
+    const label=category==="الكل"?"كل المنتجات":category;
+
+    return `<button class="cat-btn ${active}"
+      onclick="chooseCategory('${category}')">${label}</button>`;
+  }).join("");
+}
+
+function chooseCategory(category){
+  activeCategory=category;
+  renderCategories();
+  renderProducts();
+}
+
+/* عرض المنتجات */
+function renderProducts(){
+  const searchInput=document.getElementById("searchBox");
+  const query=searchInput?searchInput.value.trim().toLowerCase():"";
+
+  const filtered=products.filter(function(product){
+    const matchesCategory=
+      activeCategory==="الكل"||product.category===activeCategory;
+    const matchesSearch=String(product.name||"").toLowerCase().includes(query);
+    return matchesCategory&&matchesSearch;
+  });
+
+  document.getElementById("sectionTitle").textContent=
+    activeCategory==="الكل"?"كل المنتجات":activeCategory;
+
+  document.getElementById("productCount").textContent=
+    filtered.length+" منتج";
+
+  const target=document.getElementById("products");
+
+  if(filtered.length===0){
+    target.innerHTML='<div class="empty">مش لاقيين منتجات مطابقة للبحث.</div>';
+    return;
+  }
+
+  target.innerHTML=filtered.map(function(product){
+    const quantity=getQty(product.id);
+
+    let cartButton="";
+    if(quantity===0){
+      cartButton=`<button class="add-btn"
+        onclick="changeQuantity(${Number(product.id)},1)">＋ أضف للسلة</button>`;
+    }else{
+      cartButton=`<div class="quantity">
+        <button onclick="changeQuantity(${Number(product.id)},-1)">−</button>
+        <span>${quantity}</span>
+        <button onclick="changeQuantity(${Number(product.id)},1)">＋</button>
+      </div>`;
+    }
+
     return `<article class="product">
-      <div class="product-picture">${productImage(p)}</div>
+      <div class="product-picture">${productImage(product)}</div>
       <div class="product-body">
-        <h3>${safe(p.name)}</h3>
-        <div class="product-sub">${safe(p.category)} · ${safe(p.unit||"حسب المتاح")}</div>
-        <div class="product-buttons">
-          ${qty===0
-            ? `<button class="add-btn" onclick="changeQuantity(${p.id},1)">＋ أضف للسلة</button>`
-            : `<div class="quantity"><button onclick="changeQuantity(${p.id},-1)">−</button><span>${qty}</span><button onclick="changeQuantity(${p.id},1)">＋</button></div>`
-          }
+        <h3>${safe(product.name)}</h3>
+        <div class="product-sub">
+          ${safe(product.category)} · ${safe(product.unit||"حسب المتاح")}
         </div>
+        <div class="product-buttons">${cartButton}</div>
       </div>
     </article>`;
   }).join("");
 }
+
+/* تعديل كمية المنتج في السلة */
 function changeQuantity(id,change){
-  cart[id]=Math.max(0,getQty(id)+change);
-  if(cart[id]===0)delete cart[id];
-  persist();renderProducts();renderCart();updateCount();
+  const productId=String(id);
+  const newQuantity=Math.max(0,getQty(productId)+change);
+
+  if(newQuantity===0){
+    delete cart[productId];
+  }else{
+    cart[productId]=newQuantity;
+  }
+
+  persist();
+  renderProducts();
+  renderCart();
+  updateCartCount();
 }
-function updateCount(){
-  document.getElementById("cartCount").textContent=Object.values(cart).reduce((sum,n)=>sum+n,0);
+
+function updateCartCount(){
+  const total=Object.values(cart).reduce(function(sum,quantity){
+    return sum+Number(quantity||0);
+  },0);
+
+  document.getElementById("cartCount").textContent=total;
 }
+
+/* عرض السلة */
 function renderCart(){
   const box=document.getElementById("cartBox");
-  const selected=Object.entries(cart).filter(([id,qty])=>qty>0);
-  if(!selected.length){
-    box.innerHTML='<div class="empty">السلة فاضية حاليًا 🛒<br>اختار منتجات من الرئيسية.</div>';return;
+  const selected=Object.entries(cart).filter(function(entry){
+    return Number(entry[1])>0;
+  });
+
+  if(selected.length===0){
+    box.innerHTML=
+      '<div class="empty">السلة فاضية حاليًا 🛒<br>اختار منتجات من الرئيسية.</div>';
+    return;
   }
-  box.innerHTML=selected.map(([id,qty])=>{
-    const p=products.find(item=>item.id===Number(id));
-    if(!p)return "";
+
+  const rows=selected.map(function(entry){
+    const id=Number(entry[0]);
+    const quantity=Number(entry[1]);
+    const product=products.find(function(item){
+      return Number(item.id)===id;
+    });
+
+    if(!product)return "";
+
     return `<div class="cart-item">
-      <div class="cart-pic">${productImage(p)}</div>
-      <div class="cart-name"><b>${safe(p.name)}</b><small>${safe(p.unit||"")}</small></div>
-      <div class="quantity"><button onclick="changeQuantity(${p.id},-1)">−</button><span>${qty}</span><button onclick="changeQuantity(${p.id},1)">＋</button></div>
+      <div class="cart-pic">${productImage(product)}</div>
+      <div class="cart-name">
+        <b>${safe(product.name)}</b>
+        <small>${safe(product.unit||"")}</small>
+      </div>
+      <div class="quantity">
+        <button onclick="changeQuantity(${id},-1)">−</button>
+        <span>${quantity}</span>
+        <button onclick="changeQuantity(${id},1)">＋</button>
+      </div>
     </div>`;
-  }).join("")+
-  '<p class="note">الأسعار غير معروضة في النسخة الحالية.</p>';
+  }).join("");
+
+  box.innerHTML=rows+
+    '<p class="note">الأسعار مش معروضة في النسخة الحالية.</p>';
 }
+
+/* التنقل بين صفحات التطبيق */
 function openPage(page){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".page").forEach(function(section){
+    section.classList.remove("active");
+  });
+
   const target=document.getElementById(page+"Page");
   if(target)target.classList.add("active");
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.page===page);
+
+  document.querySelectorAll(".nav-btn").forEach(function(button){
+    button.classList.toggle("active",button.dataset.page===page);
   });
+
   if(page==="cart")renderCart();
   if(page==="orders")renderOrders();
   if(page==="admin")renderAdmin();
+
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
+/* تسجيل طلب تجريبي */
 function submitOrder(){
   const name=document.getElementById("buyerName").value.trim();
   const phone=document.getElementById("buyerPhone").value.trim();
   const address=document.getElementById("buyerAddress").value.trim();
-  if(!Object.keys(cart).length){alert("ضيف منتجات للسلة الأول.");return;}
-  if(!name||!phone||!address){alert("اكتب الاسم ورقم الموبايل والعنوان.");return;}
-  orders.unshift({
-    id:Date.now(),name,phone,address,date:new Date().toLocaleString("ar-EG"),
-    items:Object.entries(cart).map(([id,qty])=>{
-      const p=products.find(x=>x.id===Number(id));
-      return p?{name:p.name,qty,unit:p.unit}:null;
-    }).filter(Boolean)
-  });
-  cart={};persist();renderCart();updateCount();
-  alert("تم تسجيل الطلب تجريبيًا على الجهاز.");
-  openPage("orders");
-}
-function renderOrders(){
-  const box=document.getElementById("ordersBox");
-  if(!orders.length){
-    box.innerHTML='<div class="panel empty">مفيش طلبات مسجلة لسه.</div>';return;
+
+  if(Object.keys(cart).length===0){
+    alert("ضيف منتجات للسلة الأول.");
+    return;
   }
-  box.innerHTML=orders.map(o=>`<div class="panel">
-    <b>طلب رقم ${o.id}</b><p class="note">${safe(o.date)}</p>
-    <p>${safe(o.name)} · ${safe(o.phone)}</p>
-    <p class="note">${safe(o.address)}</p>
-    ${o.items.map(i=>`<div>${safe(i.name)} × ${i.qty} ${safe(i.unit||"")}</div>`).join("")}
-  </div>`).join("");
-}
-function saveProduct(event){
-  event.preventDefault();
-  const oldId=Number(document.getElementById("productId").value);
-  const product={
-    id:oldId||Date.now(),
-    name:document.getElementById("nameInput").value.trim(),
-    category:document.getElementById("categoryInput").value,
-    unit:document.getElementById("unitInput").value.trim(),
-    emoji:document.getElementById("emojiInput").value.trim()||"🥬",
-    image:document.getElementById("imageInput").value.trim()
-  };
-  if(oldId)products=products.map(p=>p.id===oldId?product:p);
-  else products.push(product);
-  persist();resetForm();renderAdmin();renderProducts();
-  alert("اتحفظ المنتج على الجهاز.");
-}
-function editProduct(id){
-  const p=products.find(item=>item.id===id);if(!p)return;
-  document.getElementById("productId").value=p.id;
-  document.getElementById("nameInput").value=p.name;
-  document.getElementById("categoryInput").value=p.category;
-  document.getElementById("unitInput").value=p.unit||"";
-  document.getElementById("emojiInput").value=p.emoji||"";
-  document.getElementById("imageInput").value=p.image||"";
-  document.getElementById("formHeading").textContent="تعديل المنتج";
-  document.getElementById("productForm").scrollIntoView({behavior:"smooth"});
-}
-function removeProduct(id){
-  if(!confirm("متأكد إنك عايز تحذف المنتج؟"))return;
-  products=products.filter(p=>p.id!==id);delete cart[id];
-  persist();renderAdmin();renderProducts();renderCart();updateCount();
-}
-function resetForm(){
-  document.getElementById("productForm").reset();
-  document.getElementById("productId").value="";
-  document.getElementById("formHeading").textContent="إضافة منتج جديد";
-}
-function renderAdmin(){
-  document.getElementById("adminCount").textContent=products.
+
+  if(!name||!phone||!address){
+    alert("اكتب الاسم ورقم الموبايل والعنوان.");
+    return;
+  }
+
+  const orderItems=Object.entries(cart).map(function(entry){
+    const id=Number(entry[0]);
+    const quantity=Number(entry[1]);
+    const product=products.find(function(item){
+      return Number(item.id)===id;
+    });
+
+    if(!product)return null;
+
+    return {
+      name:product.name,
+      quantity:quantity,
+      unit:product.unit||""
+    };
+  }).f
